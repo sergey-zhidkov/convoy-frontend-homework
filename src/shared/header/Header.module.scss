@@ -1,0 +1,12 @@
+.Header {
+    display: flex;
+    align-items: center;
+
+    .logo {
+        padding: 20px;
+
+        svg {
+            height: 16px;
+        }
+    }
+}

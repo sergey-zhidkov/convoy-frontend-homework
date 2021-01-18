@@ -1,0 +1,29 @@
+.NavBar {
+    width: 100%;
+
+    .navigationContainer {
+        display: flex;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+
+        .link {
+            font-family: ProximaNova-Regular;
+            font-size: 16px;
+            color: #0b2127;
+            letter-spacing: 0.4px;
+            line-height: 20px;
+            border-bottom: 4px solid transparent;
+            padding: 21px 22px 15px 22px;
+            cursor: pointer;
+
+            &.active {
+                border-color: #f65335;
+            }
+
+            &:hover {
+                background-color: #edebe9;
+            }
+        }
+    }
+}
