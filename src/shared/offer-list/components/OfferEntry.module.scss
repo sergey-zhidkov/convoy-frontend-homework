@@ -1,0 +1,31 @@
+.OfferEntry {
+    padding: 16px 22px;
+
+    .requestStatus {
+        display: inline-block;
+        text-transform: uppercase;
+        background-color: #14a9e6;
+        color: #ffffff;
+        font-family: ProximaNova-Regular;
+        font-size: 14px;
+        color: #ffffff;
+        letter-spacing: 0.35px;
+        line-height: 20px;
+        padding: 2px 6px;
+    }
+
+    .contentContainer {
+        display: flex;
+        justify-content: space-between;
+
+        .payment {
+            font-family: ProximaNova-Bold;
+            font-size: 18px;
+            font-weight: 600;
+            color: #49a54e;
+            letter-spacing: 0.45px;
+            text-align: right;
+            line-height: 20px;
+        }
+    }
+}
