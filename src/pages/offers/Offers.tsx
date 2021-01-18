@@ -2,7 +2,7 @@ import React from "react"
 import styles from "./Offers.module.scss"
 import { RouteComponentProps } from "react-router-dom"
 import { buildClassName } from "../../utils/utils"
-import { Content } from "../../shared/content/Content"
+import { OfferList } from "../../shared/offer-list/OfferList"
 
 interface OffersProps extends RouteComponentProps {
     className?: string
@@ -40,17 +40,15 @@ export function Offers({ className }: OffersProps): JSX.Element {
     //     }
     // }
 
-    // const handleSearchReset = (): void => {
-    //     if (searchMode) {
-    //         setSearchMode(false)
-    //         dispatch(actions.resetSearchState())
-    //         dispatch(actions.getNextCards())
-    //     }
-    // }
+    const renderShowMore = (): JSX.Element => {
+        return <button className={styles.showMore}>Show more</button>
+    }
 
     return (
         <div className={buildClassName("Offers", styles.Offers, className)}>
-            <Content />
+            <div className={styles.sortSelector}>Sort by: Most Recent</div>
+            <OfferList className={styles.offerList} />
+            {renderShowMore()}
         </div>
     )
 }

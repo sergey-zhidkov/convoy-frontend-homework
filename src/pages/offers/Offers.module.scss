@@ -1,5 +1,38 @@
 .Offers {
-    // height: 100%;
-    // overflow: auto;
+    display: flex;
+    flex-direction: column;
+
     flex-grow: 1;
+    background-color: #f7f9fa;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+
+    padding: 22px 52px;
+
+    .sortSelector {
+        border: 1px solid #d6dadc;
+        border-radius: 4px;
+        padding: 16px 18px;
+    }
+
+    .offerList {
+        flex-grow: 1;
+        margin-top: 8px;
+        margin-bottom: 20px;
+    }
+
+    .showMore {
+        width: 190px;
+        height: 40px;
+        background-color: #848e93;
+        border: none;
+        border-radius: 4px;
+        font-family: ProximaNova-Bold;
+        font-size: 16px;
+        font-weight: 600;
+        color: #ffffff;
+        letter-spacing: 0;
+        text-align: center;
+        line-height: 20px;
+    }
 }
