@@ -46,6 +46,7 @@ export const actions = {
                 const result = await client.fetchOfferList()
                 console.log(result)
                 dispatch(this.updateSetFetchState(actionTypes.setFetchStateSuccess))
+                dispatch(this.failureGetOffertListFetchState(""))
                 dispatch(this.updateSearchState(searchState, result))
                 dispatch(this.addOfferList(result))
             } catch (err) {

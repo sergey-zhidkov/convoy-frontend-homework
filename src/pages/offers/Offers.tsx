@@ -7,15 +7,17 @@ import { RootState } from "../../store/store"
 import { useDispatch, useSelector } from "react-redux"
 import { actions } from "../../store/actions"
 import { FetchState } from "../../store/reducers"
+import { BeatLoader } from "react-spinners"
+import { SortSelector } from "../../shared/sort-selector/SortSelector"
+import { SortType } from "../../types/types"
 
 interface OffersProps extends RouteComponentProps {
     className?: string
 }
 
 export function Offers({ className }: OffersProps): JSX.Element {
-    // const [searchMode, setSearchMode] = useState(false)
-
-    const { offerList, fetchState, error } = useSelector((state: RootState) => state.offerReducers)
+    const { offerList, fetchState, error, searchState } = useSelector((state: RootState) => state.offerReducers)
+    const isLoading = fetchState === FetchState.Loading
 
     const dispatch = useDispatch()
 
@@ -25,32 +27,12 @@ export function Offers({ className }: OffersProps): JSX.Element {
         }
     }, [])
 
-    // const handleScrollToBottom = (): void => {
-    //     const cardsCount = cards?.length || 0
-    //     const totalCount = searchResponse?._totalCount
-    //     if (cardsCount === totalCount || fetchState === FetchState.Loading) {
-    //         return
-    //     }
-    //     dispatch(actions.getNextCards())
-    // }
-
-    // const handleSearch = (query: string): void => {
-    //     if (query.trim()) {
-    //         setSearchMode(true)
-    //         dispatch(actions.resetSearchState())
-    //         dispatch(actions.getNextCards(query.trim()))
-    //     }
-    // }
-
     const renderShowMore = (): JSX.Element => {
         return (
             <div className={styles.showMoreContainer}>
-                <button
-                    className={styles.showMore}
-                    disabled={fetchState === FetchState.Loading}
-                    onClick={handleSearchNext}
-                >
-                    Show more
+                <button className={styles.showMore} disabled={isLoading} onClick={handleSearchNext}>
+                    {!isLoading && <span>Show more</span>}
+                    {isLoading && <BeatLoader size={36} margin={2} loading={true} color="#ffffff" />}
                 </button>
                 {error && <div className={styles.errorContainer}>{error}</div>}
             </div>
@@ -61,9 +43,23 @@ export function Offers({ className }: OffersProps): JSX.Element {
         dispatch(actions.getNextOfferList())
     }
 
+    const handleSortChange = (sortOrder: string): void => {
+        if (sortOrder !== searchState.sort) {
+            const newSearchState = { ...searchState }
+            newSearchState.sort = sortOrder as SortType
+            dispatch(actions.setSearchState(newSearchState))
+            dispatch(actions.setOfferList([]))
+            dispatch(actions.getNextOfferList())
+        }
+    }
+
     return (
         <div className={buildClassName("Offers", styles.Offers, className)}>
-            <div className={styles.sortSelector}>Sort by: Most Recent</div>
+            <SortSelector
+                className={styles.sortSelector}
+                selectedValue={searchState.sort}
+                onChange={handleSortChange}
+            />
             <OfferList className={styles.offerList} offerList={offerList} />
             {renderShowMore()}
         </div>
