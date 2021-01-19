@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/convoy-frontend-homework/static/css/main.b84d5132.chunk.css",
+    "main.js": "/convoy-frontend-homework/static/js/main.9e10f060.chunk.js",
+    "main.js.map": "/convoy-frontend-homework/static/js/main.9e10f060.chunk.js.map",
+    "runtime-main.js": "/convoy-frontend-homework/static/js/runtime-main.0d16fbad.js",
+    "runtime-main.js.map": "/convoy-frontend-homework/static/js/runtime-main.0d16fbad.js.map",
+    "static/js/2.cbe896e7.chunk.js": "/convoy-frontend-homework/static/js/2.cbe896e7.chunk.js",
+    "static/js/2.cbe896e7.chunk.js.map": "/convoy-frontend-homework/static/js/2.cbe896e7.chunk.js.map",
+    "static/js/3.02a2b5b2.chunk.js": "/convoy-frontend-homework/static/js/3.02a2b5b2.chunk.js",
+    "static/js/3.02a2b5b2.chunk.js.map": "/convoy-frontend-homework/static/js/3.02a2b5b2.chunk.js.map",
+    "index.html": "/convoy-frontend-homework/index.html",
+    "static/css/main.b84d5132.chunk.css.map": "/convoy-frontend-homework/static/css/main.b84d5132.chunk.css.map",
+    "static/js/2.cbe896e7.chunk.js.LICENSE.txt": "/convoy-frontend-homework/static/js/2.cbe896e7.chunk.js.LICENSE.txt",
+    "static/media/convoy-logo.bb7cb8e6.svg": "/convoy-frontend-homework/static/media/convoy-logo.bb7cb8e6.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0d16fbad.js",
+    "static/js/2.cbe896e7.chunk.js",
+    "static/css/main.b84d5132.chunk.css",
+    "static/js/main.9e10f060.chunk.js"
+  ]
+}
