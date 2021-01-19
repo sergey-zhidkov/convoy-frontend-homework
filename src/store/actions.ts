@@ -27,15 +27,8 @@ export interface UpdateErrorAction extends PayloadAction<string> {}
 export type ThunkPromiseAction = ThunkAction<Promise<void>, RootState, undefined, Action>
 export type ThunkVoidAction = ThunkAction<void, RootState, undefined, Action>
 
-// function hasMoreOffers(offersState: OffersState): boolean {
-//     const cardsCount = offersState.offers?.length || 0
-//     const totalCount = offersState.offerListInfo.searchResponse?._totalCount
-//     return totalCount === undefined || cardsCount < totalCount
-// }
-
 // Unique request id to synchronize HTTP requests
 // let requestId = 0
-
 export const actions = {
     getNextOfferList(): ThunkPromiseAction {
         return async (dispatch: Dispatch<any>, getState: () => RootState): Promise<void> => {
