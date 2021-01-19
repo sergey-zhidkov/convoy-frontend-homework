@@ -15,7 +15,7 @@ interface OffersProps extends RouteComponentProps {
 export function Offers({ className }: OffersProps): JSX.Element {
     // const [searchMode, setSearchMode] = useState(false)
 
-    const { offerList, fetchState } = useSelector((state: RootState) => state.offerReducers)
+    const { offerList, fetchState, error } = useSelector((state: RootState) => state.offerReducers)
 
     const dispatch = useDispatch()
 
@@ -44,13 +44,22 @@ export function Offers({ className }: OffersProps): JSX.Element {
 
     const renderShowMore = (): JSX.Element => {
         return (
-            <button className={styles.showMore} disabled={fetchState !== FetchState.Success} onClick={handleSearchNext}>
-                Show more
-            </button>
+            <div className={styles.showMoreContainer}>
+                <button
+                    className={styles.showMore}
+                    disabled={fetchState === FetchState.Loading}
+                    onClick={handleSearchNext}
+                >
+                    Show more
+                </button>
+                {error && <div className={styles.errorContainer}>{error}</div>}
+            </div>
         )
     }
 
-    const handleSearchNext = (): void => {}
+    const handleSearchNext = (): void => {
+        dispatch(actions.getNextOfferList())
+    }
 
     return (
         <div className={buildClassName("Offers", styles.Offers, className)}>

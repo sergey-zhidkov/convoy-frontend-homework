@@ -16,11 +16,13 @@ export const actionTypes = {
     setFetchStateLoading: "convoy_setFetchStateLoading",
     setFetchStateError: "convoy_setFetchStateError",
     setSearchState: "convoy_setSearchState",
+    setError: "convoy_setError",
 }
 
 export interface UpdateOfferListAction extends PayloadAction<Offer[]> {}
 export interface SetFetchStateAction extends PayloadAction<void> {}
 export interface SetSearchStateAction extends PayloadAction<SearchState> {}
+export interface UpdateErrorAction extends PayloadAction<string> {}
 
 export type ThunkPromiseAction = ThunkAction<Promise<void>, RootState, undefined, Action>
 export type ThunkVoidAction = ThunkAction<void, RootState, undefined, Action>
@@ -93,6 +95,10 @@ export const actions = {
     failureGetOffertListFetchState(error: string): ThunkVoidAction {
         return (dispatch: Dispatch<any>): void => {
             dispatch(this.updateSetFetchState(actionTypes.setFetchStateError))
+            dispatch<UpdateErrorAction>({
+                type: actionTypes.setError,
+                payload: error,
+            })
         }
     },
 }

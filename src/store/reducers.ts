@@ -1,4 +1,10 @@
-import { actionTypes, SetFetchStateAction, SetSearchStateAction, UpdateOfferListAction } from "./actions"
+import {
+    actionTypes,
+    SetFetchStateAction,
+    SetSearchStateAction,
+    UpdateErrorAction,
+    UpdateOfferListAction,
+} from "./actions"
 import { combineReducers } from "redux"
 import { Offer, OrderType, SearchState, SortType } from "../types/types"
 
@@ -24,7 +30,6 @@ export interface OffersState {
 
 function offerList(state: Offer[] = [], action: UpdateOfferListAction): Offer[] {
     if (action.type === actionTypes.addOfferList) {
-        debugger
         return [...state, ...action.payload]
     } else if (action.type === actionTypes.setOfferList) {
         return [...action.payload]
@@ -53,4 +58,12 @@ function searchState(state: SearchState = { ...defaultSearchState }, action: Set
     return state
 }
 
-export const offerReducers = combineReducers({ offerList, fetchState, searchState })
+function error(state: string = "", action: UpdateErrorAction): string {
+    if (action.type === actionTypes.setError) {
+        return action.payload
+    }
+
+    return state
+}
+
+export const offerReducers = combineReducers({ offerList, fetchState, searchState, error })
