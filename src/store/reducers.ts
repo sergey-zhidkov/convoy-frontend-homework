@@ -1,6 +1,6 @@
-import { actionTypes } from "./actions"
+import { actionTypes, SetFetchStateAction, SetSearchStateAction, UpdateOfferListAction } from "./actions"
 import { combineReducers } from "redux"
-import { Offer } from "../types/types"
+import { Offer, OrderType, SearchState, SortType } from "../types/types"
 
 export enum FetchState {
     Loading,
@@ -8,59 +8,49 @@ export enum FetchState {
     Error,
 }
 
-export interface OffersState {
-    offerListInfo: Readonly<{
-        searchResponse: Offer[] | null
-        fetchState: FetchState
-        error: string
-    }>
+const defaultSearchState: SearchState = {
+    offset: 0,
+    limit: 3,
+    sort: SortType.pickupDate,
+    order: OrderType.desc,
 }
 
-// function cardListInfo(
-//     state: OffersState["offerListInfo"] = {
-//         searchResponse: null,
-//         fetchState: FetchState.Success,
-//         error: "",
-//     },
-//     action: GetSearchResponseAction | SetGetCardsFailureAction
-// ): OffersState["offerListInfo"] {
-//     if (action.type === actionTypes.getOffers) {
-//         return {
-//             searchResponse: action.payload as EslSearchResponse,
-//             fetchState: FetchState.Success,
-//             error: state.error,
-//         }
-//     } else if (action.type === actionTypes.updateGetCardsFetchState) {
-//         return {
-//             searchResponse: state.searchResponse,
-//             fetchState: FetchState.Loading,
-//             error: state.error,
-//         }
-//     } else if (action.type === actionTypes.failureGetCardsFetchState) {
-//         return {
-//             searchResponse: state.searchResponse,
-//             fetchState: FetchState.Error,
-//             error: action.payload as string,
-//         }
-//     } else if (action.type === actionTypes.resetSearchState) {
-//         return {
-//             searchResponse: null,
-//             fetchState: FetchState.Success,
-//             error: "",
-//         }
-//     }
+export interface OffersState {
+    offerList: Offer[]
+    fetchState: FetchState
+    searchState: SearchState
+    error: string
+}
 
-//     return state
-// }
+function offerList(state: Offer[] = [], action: UpdateOfferListAction): Offer[] {
+    if (action.type === actionTypes.addOfferList) {
+        debugger
+        return [...state, ...action.payload]
+    } else if (action.type === actionTypes.setOfferList) {
+        return [...action.payload]
+    }
 
-// function cards(state: CardInfo[] = [], action: AddCardsAction | SetCardsAction): CardInfo[] {
-//     if (action.type === actionTypes.addCards) {
-//         return [...state, ...action.payload]
-//     } else if (action.type === actionTypes.setCards) {
-//         return [...action.payload]
-//     }
+    return state
+}
 
-//     return state
-// }
+function fetchState(state: FetchState = FetchState.Success, action: SetFetchStateAction): FetchState {
+    if (action.type === actionTypes.setFetchStateLoading) {
+        return FetchState.Loading
+    } else if (action.type === actionTypes.setFetchStateSuccess) {
+        return FetchState.Success
+    } else if (action.type === actionTypes.setFetchStateError) {
+        return FetchState.Error
+    }
 
-export const offerReducers = combineReducers({})
+    return state
+}
+
+function searchState(state: SearchState = { ...defaultSearchState }, action: SetSearchStateAction): SearchState {
+    if (action.type === actionTypes.setSearchState) {
+        return Object.assign({}, state, action.payload)
+    }
+
+    return state
+}
+
+export const offerReducers = combineReducers({ offerList, fetchState, searchState })

@@ -1,8 +1,12 @@
-import React from "react"
+import React, { useEffect } from "react"
 import styles from "./Offers.module.scss"
 import { RouteComponentProps } from "react-router-dom"
 import { buildClassName } from "../../utils/utils"
 import { OfferList } from "../../shared/offer-list/OfferList"
+import { RootState } from "../../store/store"
+import { useDispatch, useSelector } from "react-redux"
+import { actions } from "../../store/actions"
+import { FetchState } from "../../store/reducers"
 
 interface OffersProps extends RouteComponentProps {
     className?: string
@@ -11,17 +15,15 @@ interface OffersProps extends RouteComponentProps {
 export function Offers({ className }: OffersProps): JSX.Element {
     // const [searchMode, setSearchMode] = useState(false)
 
-    // const cards = useSelector((state: RootState) => state.cardState.cards)
-    // const { fetchState, searchResponse } = useSelector((state: RootState) => state.cardState.cardListInfo)
+    const { offerList, fetchState } = useSelector((state: RootState) => state.offerReducers)
 
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     if (!cards?.length) {
-    //         dispatch(actions.getNextCards())
-    //     }
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [])
+    useEffect(() => {
+        if (!offerList?.length) {
+            dispatch(actions.getNextOfferList())
+        }
+    }, [])
 
     // const handleScrollToBottom = (): void => {
     //     const cardsCount = cards?.length || 0
@@ -41,13 +43,19 @@ export function Offers({ className }: OffersProps): JSX.Element {
     // }
 
     const renderShowMore = (): JSX.Element => {
-        return <button className={styles.showMore}>Show more</button>
+        return (
+            <button className={styles.showMore} disabled={fetchState !== FetchState.Success} onClick={handleSearchNext}>
+                Show more
+            </button>
+        )
     }
+
+    const handleSearchNext = (): void => {}
 
     return (
         <div className={buildClassName("Offers", styles.Offers, className)}>
             <div className={styles.sortSelector}>Sort by: Most Recent</div>
-            <OfferList className={styles.offerList} />
+            <OfferList className={styles.offerList} offerList={offerList} />
             {renderShowMore()}
         </div>
     )
