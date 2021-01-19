@@ -1,6 +1,6 @@
 import React from "react"
 import { Offer, TimeInterval } from "../../../types/types"
-import { buildClassName, milesToLocale, moneyToUSD } from "../../../utils/utils"
+import { buildClassName, formatTimeInterval, milesToLocale, moneyToUSD } from "../../../utils/utils"
 import styles from "./OfferEntry.module.scss"
 
 interface OfferEntryProps {
@@ -41,9 +41,7 @@ export const OfferEntry: React.FC<OfferEntryProps> = ({ className, offer }): JSX
             <span className={styles.location}>
                 {city}, {state}
             </span>
-            <span className={styles.timeInterval}>
-                {interval.start.getTime()} - {interval.end.getTime()}
-            </span>
+            <span className={styles.timeInterval}>{formatTimeInterval(interval)}</span>
         </div>
     )
 

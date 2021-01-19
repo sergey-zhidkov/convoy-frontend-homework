@@ -1,4 +1,4 @@
-import { Offer, OfferResponse } from "../types/types"
+import { Offer, OfferResponse, TimeInterval } from "../types/types"
 
 export function buildClassName(...classNames: any[]): string {
     return (classNames || []).filter((name) => !!name).join(" ")
@@ -57,4 +57,41 @@ export function offerListResponseToOfferList(offerListResponse: OfferResponse[])
         // Set status randomly (30% chance), since we don't get this data from API
         isRequested: Math.random() < 0.3,
     }))
+}
+
+export function formatTimeInterval(interval: TimeInterval): string {
+    if (!interval) {
+        return ""
+    }
+    const { start, end } = interval
+    const startDate = start.getDate()
+    const startMonth = start.getMonth()
+    const startYear = start.getFullYear()
+    const endDate = end.getDate()
+    const endMonth = end.getMonth()
+    const endYear = end.getFullYear()
+
+    if (startDate !== endDate || startMonth !== endMonth || startYear !== endYear) {
+        return `${start.toLocaleString([], {
+            weekday: "short",
+            month: "numeric",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+        })} - ${end.toLocaleString([], {
+            weekday: "short",
+            month: "numeric",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+        })}`
+    }
+    return `${start.toLocaleDateString([], {
+        weekday: "short",
+        month: "numeric",
+        day: "numeric",
+    })} ${start.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+    })} - ${end.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`
 }
